@@ -2,6 +2,13 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.7.
 
+## Installation
+
+To install all the dependencies this project needs to run use the command:
+
+```bash
+npm install
+
 ## Development server
 
 To start a local development server, run:
