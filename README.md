@@ -8,6 +8,7 @@ To install all the dependencies this project needs to run use the command:
 
 ```bash
 npm install
+```
 
 ## Development server
 
