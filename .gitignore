@@ -30,6 +30,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
+.gemini/
 .env
 /.angular/cache
 .sass-cache/
