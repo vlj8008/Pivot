@@ -12,12 +12,8 @@ to maintain consistent signals-based data flow. Never use `mutate` on signals; u
 `update` to preserve state predictability and clean change tracking.
 
 ### II. Component & Template Discipline
-Keep components small and strictly focused on a single responsibility. Prefer inline templates
-for small components. Native control flow (`@if`, `@for`, `@switch`) MUST be used instead of
-traditional directives (`*ngIf`, `*ngFor`, `*ngSwitch`). Avoid setting dynamic styles/classes
-via legacy directives (`ngClass`, `ngStyle`); use native `class` and `style` bindings instead.
-All external template/style paths must be relative to the component file, and templates must not
-assume the availability of global objects (such as `new Date()`).
+
+Keep components small and strictly focused on a single responsibility. Components MUST utilize dedicated external HTML files for all templates to ensure separation of concerns. Inline templates are prohibited. Native control flow (@if, @for, @switch) MUST be used instead of traditional directives (*ngIf, *ngFor, *ngSwitch). Avoid setting dynamic styles/classes via legacy directives (ngClass, ngStyle); use native class and style bindings instead. All visual styling must be implemented exclusively using Tailwind CSS for layout and utility classes, and Angular Material for UI primitives. Do not introduce custom global CSS or inline styles where these libraries provide a solution. All external template/style paths must be relative to the component file, and templates must not assume the availability of global objects (such as new Date()).
 
 ### III. Service and Dependency Injection Standards
 Design all services around a single responsibility, and expose singletons using the standard
@@ -39,6 +35,15 @@ Write strict TypeScript: enable strict type checking, avoid the `any` type (pref
 when uncertain), and utilize type inference when obvious. Use `NgOptimizedImage` for all static
 images except inline base64 images.
 
+### VI. Iterative Development Cadence
+Development must proceed in discrete, verifiable increments. For every task, the agent MUST implement the change and execute the corresponding unit tests. Upon successful test completion, the agent MUST halt execution and prompt the developer to commit changes to version control and perform manual verification before initiating the next task.
+
+### VII. Data Preservation
+Never permanently delete records from the application. To prevent data loss, all data models must use a soft delete approach by toggling an isActive property to false.
+
+### VIII Resilience & Error Handling
+The application must be resilient to failures. All services and asynchronous operations MUST implement error handling centralized through a dedicated ErrorHandlingService. All errors must be logged to the console using a standardized JSON structure: { timestamp: ISOString, source: string, error: unknown, context: any }. In the event of a service failure, the implementation MUST return a safe, defined fallback state (e.g., an empty array, a default object, or an error stream) rather than allowing the application to crash or leaving the UI in an inconsistent state.
+
 ## Decoupled Architecture and Storage Constraints
 The application is designed using a decoupled, service-based architecture (using an interface3
 approach) to allow future integration with real databases very easily. All state data is
@@ -59,4 +64,4 @@ architectural layers) must be thoroughly justified. Developers should refer to `
 `.claude/CLAUDE.md` for daily runtime guidance. Amendments to this constitution must be documented,
 increment the constitution version, and be ratified by project maintainers.
 
-**Version**: 1.0.0 | **Ratified**: 2026-07-18 | **Last Amended**: 2026-07-18
+**Version**: 1.1.0 | **Ratified**: 2026-07-18 | **Last Amended**: 2026-07-19
