@@ -28,6 +28,9 @@ describe('TaskModalComponent', () => {
       expect(component).toBeTruthy();
       expect(component.isEditMode).toBe(false);
       expect(component.taskForm.get('title')?.value).toBe('');
+      expect(component.taskForm.get('category')?.value).toBe('');
+      expect(component.taskForm.get('description')?.value).toBe('');
+      expect(component.taskForm.get('status')?.value).toBe('New');
     });
   });
 

@@ -49,7 +49,7 @@ We need a simple interface for users to effectively track, organize, and manage 
 - **Task**: { 
     id: string, 
     title: string, 
-    category: enum ('Personal' | 'Work' | 'Finance' | 'Health'), 
+    category: enum ('Personal' | 'Professional Development' | 'Finance' | 'Health'), 
     dueDate: string, 
     description: string, 
     status: enum ('New' | 'In Progress' | 'Completed' | 'Rejected' | 'Verified'), 

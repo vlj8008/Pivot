@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 import { Task } from '../../models/task.model';
 
 @Component({
@@ -20,7 +21,8 @@ import { Task } from '../../models/task.model';
     MatFormFieldModule, 
     MatInputModule, 
     MatDatepickerModule, 
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
   ],
   templateUrl: './task-modal.component.html',
   styleUrls: ['./task-modal.component.css']
@@ -33,7 +35,10 @@ export class TaskModalComponent {
 
   taskForm = this.fb.group({
     title: [this.data?.title || '', [Validators.required]],
-    dueDate: [this.data?.dueDate ? new Date(this.data.dueDate) : null, [Validators.required]]
+    dueDate: [this.data?.dueDate ? new Date(this.data.dueDate) : null, [Validators.required]],
+    category: [this.data?.category || '', [Validators.required]],
+    description: [this.data?.description || ''],
+    status: [this.data?.status || 'New', [Validators.required]]
   });
 
   close(): void {
