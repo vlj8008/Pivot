@@ -36,7 +36,11 @@ when uncertain), and utilize type inference when obvious. Use `NgOptimizedImage`
 images except inline base64 images.
 
 ### VI. Iterative Development Cadence
-Development must proceed in discrete, verifiable increments. For every task, the agent MUST implement the change and execute the corresponding unit tests. Upon successful test completion, the agent MUST halt execution and prompt the developer to commit changes to version control and perform manual verification before initiating the next task.
+Development must proceed in discrete, verifiable increments. For every task, the agent MUST:
+1. Clearly explain your reasoning and outline your exact steps before executing any command or modifying any file.
+2. Implement the change and execute the corresponding unit tests (`ng test`).
+3. Execute a compilation build check (`ng build --configuration development`) to ensure the global dependency graph remains valid.
+4. Only AFTER both unit tests and the build check succeed, the agent MUST halt execution, display `[WAITING FOR MANUAL VERIFICATION]`, and prompt the developer to commit changes and perform manual verification before initiating the next task.
 
 ### VII. Data Preservation
 Never permanently delete records from the application. To prevent data loss, all data models must use a soft delete approach by toggling an isActive property to false.
