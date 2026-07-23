@@ -1,7 +1,7 @@
 import '@angular/compiler';
 import { TaskModalComponent } from './task-modal.component';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Injector, runInInjectionContext } from '@angular/core';
 
 describe('TaskModalComponent', () => {
@@ -11,7 +11,8 @@ describe('TaskModalComponent', () => {
     beforeEach(() => {
       const injector = Injector.create({
         providers: [
-          { provide: MAT_DIALOG_DATA, useValue: null }
+          { provide: MAT_DIALOG_DATA, useValue: null },
+          { provide: MatDialogRef, useValue: { close: vi.fn() } }
         ]
       });
 
@@ -30,7 +31,8 @@ describe('TaskModalComponent', () => {
     beforeEach(() => {
       const injector = Injector.create({
         providers: [
-          { provide: MAT_DIALOG_DATA, useValue: { id: '1', title: 'Test Task' } }
+          { provide: MAT_DIALOG_DATA, useValue: { id: '1', title: 'Test Task' } },
+          { provide: MatDialogRef, useValue: { close: vi.fn() } }
         ]
       });
 

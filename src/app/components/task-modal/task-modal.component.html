@@ -1,4 +1,12 @@
 <h2 mat-dialog-title>{{ isEditMode ? 'Edit Task' : 'Add Task' }}</h2>
 <mat-dialog-content>
-  <p>Task Form Placeholder</p>
+  <h2 mat-dialog-title class="font-bold text-gray-800">Add New Task</h2>
+
+<mat-dialog-content>
+  <p class="text-gray-600 mb-4">Task form will go here.</p>
 </mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-flat-button color="primary">Save Task</button>
+</mat-dialog-actions></mat-dialog-content>

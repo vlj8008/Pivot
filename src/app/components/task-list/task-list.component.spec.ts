@@ -4,6 +4,7 @@ import { TaskService } from '../../services/task.service';
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { Injector, runInInjectionContext, signal } from '@angular/core';
 import { Task } from '../../models/task.model';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
@@ -23,7 +24,8 @@ describe('TaskListComponent', () => {
 
     const injector = Injector.create({
       providers: [
-        { provide: TaskService, useValue: mockTaskService }
+        { provide: TaskService, useValue: mockTaskService },
+        { provide: MatDialog, useValue: { open: vi.fn() } }
       ]
     });
 
