@@ -6,11 +6,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule, Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButtonModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButtonModule, MatSortModule],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
@@ -19,23 +20,46 @@ export class TaskListComponent {
   
   tasks = this.taskService.getTasks();
   searchQuery = signal('');
+  sortState = signal<Sort>({ active: '', direction: '' });
 
   displayedColumns: string[] = ['title', 'category', 'dueDate', 'status', 'actions'];
 
   filteredTasks = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
-    const allTasks = this.tasks();
+    let allTasks = this.tasks();
     
-    if (!query) {
-      return allTasks;
+    if (query) {
+      allTasks = allTasks.filter(task => task.title.toLowerCase().includes(query));
     }
     
-    return allTasks.filter(task => task.title.toLowerCase().includes(query));
+    const sort = this.sortState();
+    if (!sort.active || sort.direction === '') {
+      return allTasks;
+    }
+
+    const isAsc = sort.direction === 'asc';
+    return [...allTasks].sort((a, b) => {
+      switch (sort.active) {
+        case 'title': return this.compare(a.title, b.title, isAsc);
+        case 'category': return this.compare(a.category, b.category, isAsc);
+        case 'dueDate': return this.compare(a.dueDate, b.dueDate, isAsc);
+        case 'status': return this.compare(a.status, b.status, isAsc);
+        default: return 0;
+      }
+    });
   });
+
+  private compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 
   updateSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.searchQuery.set(input.value);
+  }
+
+  sortData(sort: Sort): void {
+    this.sortState.set(sort);
   }
 
   deleteTask(id: string): void {
