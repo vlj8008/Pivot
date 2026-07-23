@@ -21,6 +21,38 @@
         <mat-error>Due date is required</mat-error>
       }
     </mat-form-field>
+
+    <!-- Category -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option value="Personal">Personal</mat-option>
+        <mat-option value="Professional Development">Professional Development</mat-option>
+        <mat-option value="Finance">Finance</mat-option>
+        <mat-option value="Health">Health</mat-option>
+      </mat-select>
+      @if (taskForm.get('category')?.hasError('required')) {
+        <mat-error>Category is required</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Description -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Description (Optional)</mat-label>
+      <textarea matInput formControlName="description" rows="4" placeholder="Enter task details..."></textarea>
+    </mat-form-field>
+
+    <!-- Status -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="New">New</mat-option>
+        <mat-option value="In Progress">In Progress</mat-option>
+        <mat-option value="Completed">Completed</mat-option>
+        <mat-option value="Rejected">Rejected</mat-option>
+        <mat-option value="Verified">Verified</mat-option>
+      </mat-select>
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 
