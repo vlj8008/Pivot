@@ -1,12 +1,30 @@
-<h2 mat-dialog-title>{{ isEditMode ? 'Edit Task' : 'Add Task' }}</h2>
-<mat-dialog-content>
-  <h2 mat-dialog-title class="font-bold text-gray-800">Add New Task</h2>
+<h2 mat-dialog-title class="font-bold text-gray-800">{{ isEditMode ? 'Edit Task' : 'Add New Task' }}</h2>
 
 <mat-dialog-content>
-  <p class="text-gray-600 mb-4">Task form will go here.</p>
+  <form [formGroup]="taskForm" class="flex flex-col gap-4 pt-2">
+    <!-- Title -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Task Title</mat-label>
+      <input matInput formControlName="title" placeholder="e.g., Buy Groceries">
+      @if (taskForm.get('title')?.hasError('required')) {
+        <mat-error>Title is required</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Due Date -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate" placeholder="Choose a date">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      @if (taskForm.get('dueDate')?.hasError('required')) {
+        <mat-error>Due date is required</mat-error>
+      }
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="close()">Cancel</button>
-  <button mat-flat-button color="primary">Save Task</button>
-</mat-dialog-actions></mat-dialog-content>
+  <button mat-flat-button color="primary" [disabled]="taskForm.invalid">Save Task</button>
+</mat-dialog-actions>
