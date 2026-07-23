@@ -17,7 +17,17 @@ export class TaskService {
   private loadInitialTasks(): void {
     try {
       const tasks = this.storageService.loadTasks();
-      this.tasksSignal.set(tasks);
+      if (tasks.length === 0) {
+        const dummyTasks: Task[] = [
+          { id: '1', title: 'Complete Angular tutorial', category: 'Professional Development', dueDate: '2026-08-01', status: 'In Progress', isActive: true },
+          { id: '2', title: 'Pay electricity bill', category: 'Finance', dueDate: '2026-07-28', status: 'New', isActive: true },
+          { id: '3', title: 'Schedule dentist appointment', category: 'Health', dueDate: '2026-08-15', status: 'New', isActive: true }
+        ];
+        this.tasksSignal.set(dummyTasks);
+        this.storageService.saveTasks(dummyTasks);
+      } else {
+        this.tasksSignal.set(tasks);
+      }
     } catch (error) {
       this.errorService.logError('TaskService', error, { action: 'loadInitialTasks' });
     }
