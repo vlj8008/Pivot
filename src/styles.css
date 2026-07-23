@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+/* Force all sort arrows in Angular Material tables to be visible but slightly faded so users know they are clickable */
+.mat-sort-header-arrow {
+  opacity: 0.4 !important;
+}
+
+/* Make the active sorted column's arrow fully opaque */
+[aria-sort="ascending"] .mat-sort-header-arrow,
+[aria-sort="descending"] .mat-sort-header-arrow,
+.mat-sort-header-container:hover .mat-sort-header-arrow {
+  opacity: 1 !important;
+}

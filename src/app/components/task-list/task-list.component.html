@@ -18,7 +18,7 @@
     } @else {
       <!-- Data Grid -->
       <div class="mat-elevation-z8 overflow-hidden rounded-lg border border-gray-200">
-        <table mat-table [dataSource]="filteredTasks()" matSort (matSortChange)="sortData($event)" class="w-full">
+        <table mat-table [dataSource]="filteredTasks()" matSort matSortActive="title" matSortDirection="asc" (matSortChange)="sortData($event)" class="w-full">
           
           <!-- Title Column -->
           <ng-container matColumnDef="title">

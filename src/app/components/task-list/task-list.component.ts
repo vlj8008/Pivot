@@ -20,7 +20,7 @@ export class TaskListComponent {
   
   tasks = this.taskService.getTasks();
   searchQuery = signal('');
-  sortState = signal<Sort>({ active: '', direction: '' });
+  sortState = signal<Sort>({ active: 'title', direction: 'asc' });
 
   displayedColumns: string[] = ['title', 'category', 'dueDate', 'status', 'actions'];
 

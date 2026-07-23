@@ -69,7 +69,8 @@ describe('TaskListComponent', () => {
     component.sortData({ active: 'title', direction: 'asc' });
     expect(component.filteredTasks()[0].title).toBe('Buy Groceries');
     expect(component.filteredTasks()[1].title).toBe('Finish Report');
-
+    
+    // Reverse sort
     component.sortData({ active: 'title', direction: 'desc' });
     expect(component.filteredTasks()[0].title).toBe('Finish Report');
     expect(component.filteredTasks()[1].title).toBe('Buy Groceries');
