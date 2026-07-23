@@ -64,4 +64,15 @@ describe('TaskListComponent', () => {
     component.deleteTask('1');
     expect(mockTaskService.deleteTask).toHaveBeenCalledWith('1');
   });
+
+  it('should sort tasks when sortData is called', () => {
+    component.sortData({ active: 'title', direction: 'asc' });
+    expect(component.filteredTasks()[0].title).toBe('Buy Groceries');
+    expect(component.filteredTasks()[1].title).toBe('Finish Report');
+    
+    // Reverse sort
+    component.sortData({ active: 'title', direction: 'desc' });
+    expect(component.filteredTasks()[0].title).toBe('Finish Report');
+    expect(component.filteredTasks()[1].title).toBe('Buy Groceries');
+  });
 });
