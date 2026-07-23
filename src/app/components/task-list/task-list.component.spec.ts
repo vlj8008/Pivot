@@ -17,7 +17,8 @@ describe('TaskListComponent', () => {
     ]);
 
     mockTaskService = {
-      getTasks: vi.fn().mockReturnValue(mockTasksSignal)
+      getTasks: vi.fn().mockReturnValue(mockTasksSignal),
+      deleteTask: vi.fn()
     };
 
     const injector = Injector.create({
@@ -57,5 +58,10 @@ describe('TaskListComponent', () => {
 
     component.searchQuery.set('Nonexistent');
     expect(component.filteredTasks().length).toBe(0);
+  });
+
+  it('should call TaskService.deleteTask when deleteTask is called', () => {
+    component.deleteTask('1');
+    expect(mockTaskService.deleteTask).toHaveBeenCalledWith('1');
   });
 });

@@ -16,8 +16,54 @@
         No tasks found matching your filter.
       </div>
     } @else {
-      <div class="text-gray-600">
-        {{ filteredTasks().length }} tasks loaded.
+      <!-- Data Grid -->
+      <div class="mat-elevation-z8 overflow-hidden rounded-lg border border-gray-200">
+        <table mat-table [dataSource]="filteredTasks()" class="w-full">
+          
+          <!-- Title Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-700">Title</th>
+            <td mat-cell *matCellDef="let task">{{ task.title }}</td>
+          </ng-container>
+
+          <!-- Category Column -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-700">Category</th>
+            <td mat-cell *matCellDef="let task">
+              <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">{{ task.category }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Due Date Column -->
+          <ng-container matColumnDef="dueDate">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-700">Due Date</th>
+            <td mat-cell *matCellDef="let task">{{ task.dueDate }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-700">Status</th>
+            <td mat-cell *matCellDef="let task">
+              <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">{{ task.status }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-700 text-right">Actions</th>
+            <td mat-cell *matCellDef="let task" class="text-right">
+              <button mat-icon-button color="primary" disabled title="Edit Task (Coming Soon)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteTask(task.id)" title="Delete Task">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-50 transition-colors cursor-pointer"></tr>
+        </table>
       </div>
     }
   </div>

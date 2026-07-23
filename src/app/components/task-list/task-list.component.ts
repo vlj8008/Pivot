@@ -4,11 +4,13 @@ import { TaskService } from '../../services/task.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButtonModule],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
@@ -17,6 +19,8 @@ export class TaskListComponent {
   
   tasks = this.taskService.getTasks();
   searchQuery = signal('');
+
+  displayedColumns: string[] = ['title', 'category', 'dueDate', 'status', 'actions'];
 
   filteredTasks = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
@@ -32,5 +36,9 @@ export class TaskListComponent {
   updateSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.searchQuery.set(input.value);
+  }
+
+  deleteTask(id: string): void {
+    this.taskService.deleteTask(id);
   }
 }

@@ -12,7 +12,8 @@ describe('TaskService', () => {
 
   beforeEach(() => {
     mockStorageService = {
-      loadTasks: vi.fn().mockReturnValue([]),
+      // Mock existing tasks to bypass the seeding logic in tests
+      loadTasks: vi.fn().mockReturnValue([{ id: '99', title: 'Existing Task', category: 'Personal', dueDate: '2026-12-31', status: 'New', isActive: true }]),
       saveTasks: vi.fn()
     };
     mockErrorService = {
@@ -37,15 +38,16 @@ describe('TaskService', () => {
 
   it('should load initial tasks from storage', () => {
     expect(mockStorageService.loadTasks).toHaveBeenCalled();
-    expect(service.getTasks()()).toEqual([]);
+    expect(service.getTasks()().length).toBe(1);
   });
 
   it('should add a task and save to storage', () => {
     const task: Task = { id: '1', title: 'Test', category: 'Personal', dueDate: '2026-12-31', status: 'New', isActive: true };
     service.addTask(task);
     
-    expect(service.getTasks()()).toEqual([task]);
-    expect(mockStorageService.saveTasks).toHaveBeenCalledWith([task]);
+    const tasks = service.getTasks()();
+    expect(tasks.length).toBe(2);
+    expect(mockStorageService.saveTasks).toHaveBeenCalledWith(tasks);
   });
 
   it('should update a task and save to storage', () => {
@@ -55,8 +57,9 @@ describe('TaskService', () => {
     const updatedTask: Task = { ...task, title: 'Updated Title' };
     service.updateTask(updatedTask);
     
-    expect(service.getTasks()()).toEqual([updatedTask]);
-    expect(mockStorageService.saveTasks).toHaveBeenCalledWith([updatedTask]);
+    const tasks = service.getTasks()();
+    expect(tasks.find(t => t.id === '1')?.title).toBe('Updated Title');
+    expect(mockStorageService.saveTasks).toHaveBeenCalledWith(tasks);
   });
 
   it('should perform a soft delete', () => {
@@ -66,8 +69,28 @@ describe('TaskService', () => {
     service.deleteTask('1');
     
     const tasks = service.getTasks()();
-    expect(tasks.length).toBe(1);
-    expect(tasks[0].isActive).toBe(false); // soft delete verification
+    expect(tasks.find(t => t.id === '1')?.isActive).toBe(false); // soft delete verification
     expect(mockStorageService.saveTasks).toHaveBeenCalled();
+  });
+
+  it('should seed dummy data if storage is empty', () => {
+    // Override the mock to return empty array
+    mockStorageService.loadTasks.mockReturnValue([]);
+    
+    const injector = Injector.create({
+      providers: [
+        { provide: StorageService, useValue: mockStorageService },
+        { provide: ErrorHandlingService, useValue: mockErrorService }
+      ]
+    });
+
+    let newService: TaskService;
+    runInInjectionContext(injector, () => {
+      newService = new TaskService();
+    });
+
+    const tasks = newService.getTasks()();
+    expect(tasks.length).toBe(3); // 3 dummy tasks seeded
+    expect(mockStorageService.saveTasks).toHaveBeenCalledWith(tasks);
   });
 });
