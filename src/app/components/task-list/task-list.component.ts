@@ -8,16 +8,19 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { TaskModalComponent } from '../task-modal/task-modal.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButtonModule, MatSortModule, MatPaginatorModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButtonModule, MatSortModule, MatPaginatorModule, MatDialogModule],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent {
   private taskService = inject(TaskService);
+  private dialog = inject(MatDialog);
   
   tasks = this.taskService.getTasks();
   searchQuery = signal('');
@@ -75,6 +78,13 @@ export class TaskListComponent {
   handlePageEvent(e: PageEvent) {
     this.pageSize.set(e.pageSize);
     this.pageIndex.set(e.pageIndex);
+  }
+
+  openTaskModal(): void {
+    this.dialog.open(TaskModalComponent, {
+      width: '600px',
+      disableClose: true
+    });
   }
 
   deleteTask(id: string): void {
