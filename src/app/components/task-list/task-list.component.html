@@ -18,7 +18,7 @@
     } @else {
       <!-- Data Grid -->
       <div class="mat-elevation-z8 overflow-hidden rounded-lg border border-gray-200">
-        <table mat-table [dataSource]="filteredTasks()" matSort matSortActive="title" matSortDirection="asc" (matSortChange)="sortData($event)" class="w-full">
+        <table mat-table [dataSource]="paginatedTasks()" matSort matSortActive="title" matSortDirection="asc" (matSortChange)="sortData($event)" class="w-full">
           
           <!-- Title Column -->
           <ng-container matColumnDef="title">
@@ -64,6 +64,14 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-50 transition-colors cursor-pointer"></tr>
         </table>
+        
+        <mat-paginator [length]="filteredTasks().length"
+                       [pageSize]="pageSize()"
+                       [pageIndex]="pageIndex()"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       (page)="handlePageEvent($event)"
+                       aria-label="Select page">
+        </mat-paginator>
       </div>
     }
   </div>

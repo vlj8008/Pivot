@@ -90,7 +90,7 @@ describe('TaskService', () => {
     });
 
     const tasks = newService.getTasks()();
-    expect(tasks.length).toBe(3); // 3 dummy tasks seeded
+    expect(tasks.length).toBe(10); // 10 dummy tasks seeded
     expect(mockStorageService.saveTasks).toHaveBeenCalledWith(tasks);
   });
 });

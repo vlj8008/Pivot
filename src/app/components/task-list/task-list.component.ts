@@ -7,11 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule, Sort } from '@angular/material/sort';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButtonModule, MatSortModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButtonModule, MatSortModule, MatPaginatorModule],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
@@ -21,6 +22,8 @@ export class TaskListComponent {
   tasks = this.taskService.getTasks();
   searchQuery = signal('');
   sortState = signal<Sort>({ active: 'title', direction: 'asc' });
+  pageSize = signal(5);
+  pageIndex = signal(0);
 
   displayedColumns: string[] = ['title', 'category', 'dueDate', 'status', 'actions'];
 
@@ -53,13 +56,25 @@ export class TaskListComponent {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
+  paginatedTasks = computed(() => {
+    const startIndex = this.pageIndex() * this.pageSize();
+    return this.filteredTasks().slice(startIndex, startIndex + this.pageSize());
+  });
+
   updateSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.searchQuery.set(input.value);
+    this.pageIndex.set(0);
   }
 
   sortData(sort: Sort): void {
     this.sortState.set(sort);
+    this.pageIndex.set(0);
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageSize.set(e.pageSize);
+    this.pageIndex.set(e.pageIndex);
   }
 
   deleteTask(id: string): void {

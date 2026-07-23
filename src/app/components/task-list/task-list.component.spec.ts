@@ -58,6 +58,7 @@ describe('TaskListComponent', () => {
 
     component.searchQuery.set('Nonexistent');
     expect(component.filteredTasks().length).toBe(0);
+    expect(component.paginatedTasks().length).toBe(0);
   });
 
   it('should call TaskService.deleteTask when deleteTask is called', () => {
@@ -67,12 +68,22 @@ describe('TaskListComponent', () => {
 
   it('should sort tasks when sortData is called', () => {
     component.sortData({ active: 'title', direction: 'asc' });
-    expect(component.filteredTasks()[0].title).toBe('Buy Groceries');
-    expect(component.filteredTasks()[1].title).toBe('Finish Report');
+    expect(component.paginatedTasks()[0].title).toBe('Buy Groceries');
+    expect(component.paginatedTasks()[1].title).toBe('Finish Report');
     
     // Reverse sort
     component.sortData({ active: 'title', direction: 'desc' });
-    expect(component.filteredTasks()[0].title).toBe('Finish Report');
-    expect(component.filteredTasks()[1].title).toBe('Buy Groceries');
+    expect(component.paginatedTasks()[0].title).toBe('Finish Report');
+    expect(component.paginatedTasks()[1].title).toBe('Buy Groceries');
+  });
+
+  it('should paginate tasks correctly', () => {
+    component.pageSize.set(1);
+    expect(component.paginatedTasks().length).toBe(1);
+    expect(component.paginatedTasks()[0].title).toBe('Buy Groceries');
+
+    component.handlePageEvent({ pageIndex: 1, pageSize: 1, length: 2 });
+    expect(component.paginatedTasks().length).toBe(1);
+    expect(component.paginatedTasks()[0].title).toBe('Finish Report');
   });
 });
