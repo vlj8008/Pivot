@@ -31,6 +31,7 @@ export class TaskListComponent {
   pageSize = signal(5);
   pageIndex = signal(0);
   highlightedTaskId = signal<string | null>(null);
+  isToastOpen = signal(false);
 
   displayedColumns: string[] = ['title', 'category', 'description', 'dueDate', 'status', 'actions'];
 
@@ -60,6 +61,11 @@ export class TaskListComponent {
   });
 
   private compare(a: number | string, b: number | string, isAsc: boolean) {
+    if (typeof a === 'string' && typeof b === 'string') {
+      const cmp = a.trim().localeCompare(b.trim(), undefined, { numeric: true, sensitivity: 'base' });
+      return cmp * (isAsc ? 1 : -1);
+    }
+    if (a === b) return 0;
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
@@ -103,6 +109,9 @@ export class TaskListComponent {
         };
         this.taskService.addTask(newTask);
         
+        // Clear search filter so the new task is always visible
+        this.searchQuery.set('');
+        
         // Find where the new task landed in the sorted/filtered list
         const sortedList = this.filteredTasks();
         const taskIndex = sortedList.findIndex(t => t.id === newTask.id);
@@ -123,11 +132,45 @@ export class TaskListComponent {
     });
   }
 
+  editTask(task: Task): void {
+    const dialogRef = this.dialog.open(TaskModalComponent, {
+      width: '600px',
+      disableClose: true,
+      data: task
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const updatedTask: Task = {
+          ...task,
+          title: result.title,
+          category: result.category,
+          dueDate: result.dueDate,
+          description: result.description,
+          status: result.status
+        };
+        this.taskService.updateTask(updatedTask);
+        this.isToastOpen.set(true);
+        const snackBarRef = this.snackBar.open('Task updated successfully.', 'Close', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.isToastOpen.set(false);
+        });
+      }
+    });
+  }
+
   deleteTask(id: string): void {
     this.taskService.deleteTask(id);
-    this.snackBar.open('Task deleted successfully.', 'Close', {
+    this.isToastOpen.set(true);
+    const snackBarRef = this.snackBar.open('Task deleted successfully.', 'Close', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+    });
+    snackBarRef.afterDismissed().subscribe(() => {
+      this.isToastOpen.set(false);
     });
   }
 }

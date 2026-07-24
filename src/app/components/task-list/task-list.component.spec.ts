@@ -25,12 +25,17 @@ describe('TaskListComponent', () => {
     };
 
     const mockDialog = { open: vi.fn().mockReturnValue({ afterClosed: () => of(null) }) };
+    const mockSnackBar = {
+      open: vi.fn().mockReturnValue({
+        afterDismissed: () => of(null)
+      })
+    };
 
     const injector = Injector.create({
       providers: [
         { provide: TaskService, useValue: mockTaskService },
         { provide: MatDialog, useValue: mockDialog },
-        { provide: MatSnackBar, useValue: { open: vi.fn() } }
+        { provide: MatSnackBar, useValue: mockSnackBar }
       ]
     });
 
