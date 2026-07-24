@@ -1,10 +1,12 @@
 # Pivot Project Overview
 
-This is a to-do app that displays a list of to-do task items. It enables a user to add a new task, edit a task, and delete a task. Each task has a status assigned to it. Statuses are New, In Progress, Rejected, Verified, Completed. 
+This is a to-do application that displays a list of task items. It enables a user to add a new task, edit a task, and delete a task. Each task has a status assigned to it. Valid statuses include: New, In Progress, Rejected, Verified, and Completed. 
 
 ## Data Persistence
 
 The application uses `localStorage` to save state between sessions, meaning there is no need to connect to a backend database for local usage. 
+
+**Note on Mock Data:** If you run the application for the very first time (when your `localStorage` is completely empty), the application will automatically seed itself with 11 dummy task records. This provides you with immediate sample data to test the sorting, filtering, and pagination features right out of the box!
 
 **Note on Mock Data:** If your browser's local storage is completely empty on the first run, the application will automatically run a seeder script and inject **11 mock records** into the database. This allows you to immediately test pagination, sorting, and search filtering out of the box!
 
@@ -45,25 +47,32 @@ Vitest has been successfully integrated and configured. Core business logic insi
 
 # Getting Started
 
-## Prerequistes
+## Prerequisites
 
-Ensure you have the following versions installed:
-    * Node.js v26.4.0
-    * npm v12.0.1
-    * Angular CLI v22.0.7
+Ensure you have the following versions installed on your machine:
+* Node.js v26.4.0
+* npm v12.0.1
+* Angular CLI v22.0.7
 
-Go to [Node JS](https://nodejs.org) to download correct version of Node.js
+Go to [Node.js](https://nodejs.org) to download the correct version for your operating system.
 
 ## Installation
 
-To install dependencies and the Angular CLI:
+First, clone the repository and navigate into the project directory:
+
+```bash
+git clone <your-repository-url>
+cd Pivot
+```
+
+Then, install the project dependencies and the Angular CLI globally:
 
 ```bash
 npm install
 npm install -g @angular/cli
 ```
 
-## Development server
+## Development Server
 
 To start a local development server, run:
 
@@ -71,16 +80,16 @@ To start a local development server, run:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. 
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+## Running Unit Tests
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+To execute the unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
 ```bash
-ng test
+npx vitest run
 ```
+*(Alternatively, you can use `npm run test` if a script is defined in your package.json)*
 
 ## Additional Resources
 
