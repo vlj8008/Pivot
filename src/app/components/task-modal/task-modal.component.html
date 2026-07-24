@@ -52,6 +52,9 @@
         <mat-option value="Rejected">Rejected</mat-option>
         <mat-option value="Verified">Verified</mat-option>
       </mat-select>
+      @if (taskForm.get('status')?.hasError('required')) {
+        <mat-error>Status is required</mat-error>
+      }
     </mat-form-field>
   </form>
 </mat-dialog-content>

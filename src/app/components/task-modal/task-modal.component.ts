@@ -38,7 +38,7 @@ export class TaskModalComponent {
     dueDate: [this.data?.dueDate ? new Date(this.data.dueDate) : null, [Validators.required]],
     category: [this.data?.category || '', [Validators.required]],
     description: [this.data?.description || ''],
-    status: [this.data?.status || 'New', [Validators.required]]
+    status: [this.data?.status || '', [Validators.required]]
   });
 
   close(): void {
