@@ -1,11 +1,12 @@
 import { Component, signal } from '@angular/core';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
 import { TaskListComponent } from './components/task-list/task-list.component';
-import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [MatButtonModule, TaskListComponent],
+  standalone: true,
+  imports: [MatToolbarModule, MatTabsModule, TaskListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
