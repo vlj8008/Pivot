@@ -84,13 +84,13 @@ describe('TaskService', () => {
       ]
     });
 
-    let newService: TaskService;
+    let newService!: TaskService;
     runInInjectionContext(injector, () => {
       newService = new TaskService();
     });
 
     const tasks = newService.getTasks()();
-    expect(tasks.length).toBe(10); // 10 dummy tasks seeded
+    expect(tasks.length).toBe(11); // 11 dummy tasks seeded
     expect(mockStorageService.saveTasks).toHaveBeenCalledWith(tasks);
   });
 });
