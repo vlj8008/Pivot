@@ -44,4 +44,18 @@ export class TaskModalComponent {
   close(): void {
     this.dialogRef.close();
   }
+
+  save(): void {
+    if (this.taskForm.valid) {
+      const formValue = this.taskForm.value;
+      const taskPayload = {
+        title: formValue.title,
+        dueDate: formValue.dueDate ? (formValue.dueDate as Date).toISOString().split('T')[0] : '',
+        category: formValue.category,
+        description: formValue.description,
+        status: formValue.status
+      };
+      this.dialogRef.close(taskPayload);
+    }
+  }
 }
