@@ -10,18 +10,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButtonModule, MatSortModule, MatPaginatorModule, MatDialogModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButtonModule, MatSortModule, MatPaginatorModule, MatDialogModule, MatSnackBarModule],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent {
   private taskService = inject(TaskService);
   private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
   
   tasks = this.taskService.getTasks();
   searchQuery = signal('');
@@ -34,7 +36,7 @@ export class TaskListComponent {
 
   filteredTasks = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
-    let allTasks = this.tasks();
+    let allTasks = this.tasks().filter(task => task.isActive);
     
     if (query) {
       allTasks = allTasks.filter(task => task.title.toLowerCase().includes(query));
@@ -123,5 +125,9 @@ export class TaskListComponent {
 
   deleteTask(id: string): void {
     this.taskService.deleteTask(id);
+    this.snackBar.open('Task deleted successfully.', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 }
