@@ -8,7 +8,7 @@ The application uses `localStorage` to save state between sessions, meaning ther
 
 **Note on Mock Data:** If you run the application for the very first time (when your `localStorage` is completely empty), the application will automatically seed itself with 11 dummy task records. This provides you with immediate sample data to test the sorting, filtering, and pagination features right out of the box!
 
-**Note on Mock Data:** If your browser's local storage is completely empty on the first run, the application will automatically run a seeder script and inject **11 mock records** into the database. This allows you to immediately test pagination, sorting, and search filtering out of the box!
+
 
 ---
 
