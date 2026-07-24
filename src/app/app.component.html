@@ -1,11 +1,11 @@
-<div class="min-h-screen bg-slate-200 flex flex-col">
-  <mat-toolbar color="primary" class="shadow-md z-10 flex items-end px-6 !h-auto pt-3">
-    <div class="flex items-end gap-12">
-      <img src="assets/PivotLogo.png" alt="Pivot Logo" class="h-[107px] w-auto pb-2">
+<div class="min-h-screen bg-slate-200 flex flex-col overflow-x-hidden w-full">
+  <mat-toolbar class="!bg-white shadow-md z-10 flex flex-col md:flex-row items-center md:items-end px-2 md:px-6 !h-auto pt-4 md:pt-3">
+    <div class="flex flex-col md:flex-row items-center md:items-end gap-4 md:gap-12 w-full max-w-full">
+      <img src="assets/PivotLogo.png" alt="Pivot Logo" class="h-[70px] md:h-[107px] w-auto pb-2 shrink-0">
       
-      <nav mat-tab-nav-bar [tabPanel]="tabPanel" mat-stretch-tabs="false" class="mt-auto !border-none">
-        <a mat-tab-link [active]="activeTab() === 'tasks'" (click)="activeTab.set('tasks')" class="!text-lg !font-medium !tracking-wide px-6 cursor-pointer">Task Management</a>
-        <a mat-tab-link [active]="activeTab() === 'settings'" (click)="activeTab.set('settings')" class="!text-lg !font-medium !tracking-wide px-6 cursor-pointer">Personnel Management</a>
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel" mat-stretch-tabs="false" class="mt-auto !border-none max-w-full overflow-x-auto">
+        <a mat-tab-link [active]="activeTab() === 'tasks'" (click)="activeTab.set('tasks')" class="!text-sm md:!text-lg !font-medium !tracking-wide px-4 md:px-6 cursor-pointer whitespace-nowrap">Task Management</a>
+        <a mat-tab-link [active]="activeTab() === 'settings'" (click)="activeTab.set('settings')" class="!text-sm md:!text-lg !font-medium !tracking-wide px-4 md:px-6 cursor-pointer whitespace-nowrap">Personnel Management</a>
       </nav>
     </div>
   </mat-toolbar>
