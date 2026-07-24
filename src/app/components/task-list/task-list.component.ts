@@ -1,6 +1,7 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
+import { Task } from '../../models/task.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,8 +28,9 @@ export class TaskListComponent {
   sortState = signal<Sort>({ active: 'title', direction: 'asc' });
   pageSize = signal(5);
   pageIndex = signal(0);
+  highlightedTaskId = signal<string | null>(null);
 
-  displayedColumns: string[] = ['title', 'category', 'dueDate', 'status', 'actions'];
+  displayedColumns: string[] = ['title', 'category', 'description', 'dueDate', 'status', 'actions'];
 
   filteredTasks = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
@@ -81,9 +83,41 @@ export class TaskListComponent {
   }
 
   openTaskModal(): void {
-    this.dialog.open(TaskModalComponent, {
+    const dialogRef = this.dialog.open(TaskModalComponent, {
       width: '600px',
       disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const newTask: Task = {
+          id: Date.now().toString(),
+          title: result.title,
+          category: result.category,
+          dueDate: result.dueDate,
+          description: result.description,
+          status: result.status,
+          isActive: true
+        };
+        this.taskService.addTask(newTask);
+        
+        // Find where the new task landed in the sorted/filtered list
+        const sortedList = this.filteredTasks();
+        const taskIndex = sortedList.findIndex(t => t.id === newTask.id);
+        
+        if (taskIndex !== -1) {
+          const targetPage = Math.floor(taskIndex / this.pageSize());
+          this.pageIndex.set(targetPage);
+          this.highlightedTaskId.set(newTask.id);
+          
+          // Clear highlight after 3 seconds
+          setTimeout(() => {
+            if (this.highlightedTaskId() === newTask.id) {
+              this.highlightedTaskId.set(null);
+            }
+          }, 3000);
+        }
+      }
     });
   }
 

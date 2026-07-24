@@ -58,5 +58,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="close()">Cancel</button>
-  <button mat-flat-button color="primary" [disabled]="taskForm.invalid">Save Task</button>
+  <button mat-flat-button color="primary" [disabled]="taskForm.invalid" (click)="save()">Save Task</button>
 </mat-dialog-actions>
