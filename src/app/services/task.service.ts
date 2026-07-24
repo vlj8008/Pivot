@@ -28,7 +28,8 @@ export class TaskService {
           { id: '7', title: 'Review stock portfolio', category: 'Finance', dueDate: '2026-08-10', status: 'New', isActive: true },
           { id: '8', title: 'Call mom for her birthday', category: 'Personal', dueDate: '2026-07-30', status: 'New', isActive: true },
           { id: '9', title: 'Read new architecture book', category: 'Professional Development', dueDate: '2026-08-20', status: 'In Progress', isActive: true },
-          { id: '10', title: 'Meal prep for next week', category: 'Health', dueDate: '2026-07-26', status: 'New', isActive: true }
+          { id: '10', title: 'Meal prep for next week', category: 'Health', dueDate: '2026-07-26', status: 'New', isActive: true },
+          { id: '11', title: 'Schedule car maintenance', category: 'Personal', dueDate: '2026-08-05', status: 'New', isActive: true }
         ];
         this.tasksSignal.set(dummyTasks);
         this.storageService.saveTasks(dummyTasks);
