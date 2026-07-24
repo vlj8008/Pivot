@@ -1,0 +1,24 @@
+<div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-1000" [class.!bg-yellow-100]="isHighlighted">
+  <div class="flex justify-between items-start mb-2">
+    <h3 class="text-lg font-bold text-gray-800">{{ task.title }}</h3>
+    <div class="flex gap-1">
+      <button mat-icon-button (click)="onEdit()" class="!w-8 !h-8 !leading-8" title="Edit Task">
+        <mat-icon class="!text-blue-600 scale-75">edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="onDelete()" class="!w-8 !h-8 !leading-8" title="Delete Task">
+        <mat-icon class="!text-red-500 scale-75">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  
+  <p class="text-gray-500 italic text-sm mb-4 line-clamp-2">{{ task.description || 'No description' }}</p>
+  
+  <div class="flex flex-wrap gap-2 items-center text-xs">
+    <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full font-medium">{{ task.category }}</span>
+    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full font-medium">{{ task.status }}</span>
+    <span class="text-gray-500 ml-auto flex items-center gap-1">
+      <mat-icon class="scale-50 !w-4 !h-4 leading-none">event</mat-icon>
+      {{ task.dueDate | date:'mediumDate' }}
+    </span>
+  </div>
+</div>
