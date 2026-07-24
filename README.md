@@ -24,10 +24,10 @@ To provide the best possible User Experience across all devices, this applicatio
 Here is a visual demonstration of the application dynamically swapping components based on viewport width:
 
 **Desktop Architecture (MatTable Data Grid)**
-![Desktop View](src/assets/desktop-view.png)
+![Desktop View](./public/assets/desktop-view.png)
 
 **Mobile Architecture (Reusable app-task-item)**
-![Mobile View](src/assets/mobile-view.png)
+![Mobile View](./public/assets/mobile-view.png)
 
 ### 2. Angular Forms & Validation
 The Task Creation and Edit workflows are powered by robust **Reactive Forms** (`FormGroup`, `FormControl`). The forms feature strict, real-time validation (ensuring required fields are populated) and restrict the user to the exact 5 allowable statuses (*New, In Progress, Rejected, Verified, Completed*).
