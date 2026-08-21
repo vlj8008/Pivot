@@ -15,11 +15,6 @@ The application uses `localStorage` to save state between sessions, meaning ther
 
 ---
 
-## Notes for the Evaluators
-
-This application was intentionally architected to demonstrate mastery of modern Angular concepts while strictly adhering to the core requirements:
-
-### 1. Reusable Components & Component Communication (`@Input` / `@Output`)
 To provide the best possible User Experience across all devices, this application demonstrates a **Dual-Architecture Layout**:
 * **Desktop View:** Utilizes a highly performant, integrated `MatTable` for dense data grids.
 * **Mobile View:** When the screen shrinks below `768px`, the application seamlessly morphs into a mobile-friendly Card View. This view relies entirely on a custom, highly reusable **`<app-task-item>`** component. 
