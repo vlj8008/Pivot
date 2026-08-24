@@ -1,9 +1,11 @@
-
-https://github.com/user-attachments/assets/4139463c-cfbd-40d0-a418-418a283710ae
+<video width="100%" controls>
+  <source src="https://github.com/user-attachments/assets/4139463c-cfbd-40d0-a418-418a203710ae" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 # Pivot Project Overview
 
-This is a to-do application that displays a list of task items. It enables a user to add a new task, edit a task, and delete a task. Each task has a status assigned to it.
+This is a to-do application that displays a list of task items. It enables a user to add a new task, edit a task, and delete a task. Each task has a status assigned to it. 
 
 ## Data Persistence
 
@@ -15,6 +17,7 @@ The application uses `localStorage` to save state between sessions, meaning ther
 
 ---
 
+### 1. Reusable Components & Component Communication (`@Input` / `@Output`)
 To provide the best possible User Experience across all devices, this application demonstrates a **Dual-Architecture Layout**:
 * **Desktop View:** Utilizes a highly performant, integrated `MatTable` for dense data grids.
 * **Mobile View:** When the screen shrinks below `768px`, the application seamlessly morphs into a mobile-friendly Card View. This view relies entirely on a custom, highly reusable **`<app-task-item>`** component. 
