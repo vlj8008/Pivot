@@ -3,7 +3,7 @@ https://github.com/user-attachments/assets/4139463c-cfbd-40d0-a418-418a283710ae
 
 # Pivot Project Overview
 
-This is a to-do application that displays a list of task items. It enables a user to add a new task, edit a task, and delete a task. Each task has a status assigned to it. Valid statuses include: New, In Progress, Rejected, Verified, and Completed. 
+This is a to-do application that displays a list of task items. It enables a user to add a new task, edit a task, and delete a task. Each task has a status assigned to it.
 
 ## Data Persistence
 
