@@ -1,7 +1,4 @@
-<video width="100%" controls>
-  <source src="https://github.com/user-attachments/assets/4139463c-cfbd-40d0-a418-418a203710ae" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<iframe width="100%" height="450" src="https://www.youtube.com/embed/YwS5kdpw41s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 # Pivot Project Overview
 
