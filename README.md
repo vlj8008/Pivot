@@ -2,7 +2,7 @@
 
 # Pivot Project Overview
 
-This is a to-do application that displays a list of task items. It enables a user to add a new task, edit a task, and delete a task. Each task has a status assigned to it. 
+An Angular task management app featuring full CRUD operations, built from the ground up using Spec-Driven Development and agentic AI (Antigravity).
 
 ## Data Persistence
 
