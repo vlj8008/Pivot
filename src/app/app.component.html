@@ -11,17 +11,12 @@
   </mat-toolbar>
   <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
-  <main class="flex-1 p-4 md:p-10 flex justify-center">
+   <main class="flex-1 p-4 md:p-10 flex justify-center">
     @if (activeTab() === 'tasks') {
       <app-task-list class="w-full lg:w-2/3"></app-task-list>
     } @else {
-      <div class="w-full lg:w-2/3 flex items-center justify-center bg-white shadow-2xl rounded-2xl p-16 border border-gray-100 text-center h-96">
-        <div class="text-gray-500 flex flex-col items-center">
-          <mat-icon class="!w-24 !h-24 !text-9xl mb-8 opacity-20" style="font-size: 96px">build</mat-icon>
-          <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-8">Personnel Management</h2>
-          <p class="text-xl">This feature is coming soon.</p>
-        </div>
-      </div>
+      <!-- We replaced 10 lines of HTML with this one clean tag! -->
+      <app-personnel-list class="w-full"></app-personnel-list>
     }
   </main>
 
