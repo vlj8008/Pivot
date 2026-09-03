@@ -4,11 +4,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import {PersonnelList} from './components/personnel-list/personnel-list';
+import { Chatbot } from './components/chatbot/chatbot';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MatToolbarModule, MatTabsModule, MatIconModule, TaskListComponent, PersonnelList],
+  imports: [MatToolbarModule, MatTabsModule, MatIconModule, TaskListComponent, PersonnelList, Chatbot],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
